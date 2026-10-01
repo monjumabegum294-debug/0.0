@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Little Question ❤️</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffb6d5, #ffe8f1);
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  width: 90%;
+  max-width: 420px;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+}
+
+.heart {
+  font-size: 65px;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+h1 {
+  color: #e91e63;
+}
+
+p {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 25px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: #e91e63;
+  color: white;
+}
+
+#noBtn {
+  background: #eeeeee;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  border: 2px solid #ff9fbd;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.confirm {
+  width: 100%;
+  background: #e91e63;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.message {
+  background: #fff0f6;
+  padding: 15px;
+  border-radius: 15px;
+  color: #d81b60;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <!-- FIRST PAGE -->
+  <div id="questionPage">
+
+    <div class="heart">💌</div>
+
+    <h1>I Have A Little Question ❤️</h1>
+
+    <p>
+      Will you go on a date with me? 🥰
+    </p>
+
+    <div class="buttons">
+
+      <button id="yesBtn">
+        Yes ❤️
+      </button>
+
+      <button id="noBtn">
+        No 🙈
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- DATE PAGE -->
+  <div id="datePage" class="hidden">
+
+    <div class="heart">🥰</div>
+
+    <h1>Yay! 🎉</h1>
+
+    <p>
+      Choose a date you'd like to meet ❤️
+    </p>
+
+    <input type="date" id="dateInput">
+
+    <button class="confirm" id="confirmBtn">
+      Confirm Date 💕
+    </button>
+
+  </div>
+
+
+  <!-- SUCCESS PAGE -->
+  <div id="successPage" class="hidden">
+
+    <div class="heart">❤️</div>
+
+    <h1>Date Confirmed! 🎉</h1>
+
+    <p>Your selected date is:</p>
+
+    <div class="message" id="dateResult"></div>
+
+    <p>
+      Looking forward to it! 🥰
+    </p>
+
+  </div>
+
+
+  <!-- NO PAGE -->
+  <div id="noPage" class="hidden">
+
+    <div class="heart">🙂</div>
+
+    <h1>No worries ❤️</h1>
+
+    <p>
+      Thanks for being honest.
+    </p>
+
+    <button class="confirm" onclick="goBack()">
+      Go Back
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+const questionPage = document.getElementById("questionPage");
+const datePage = document.getElementById("datePage");
+const successPage = document.getElementById("successPage");
+const noPage = document.getElementById("noPage");
+
+const dateInput = document.getElementById("dateInput");
+const confirmBtn = document.getElementById("confirmBtn");
+const dateResult = document.getElementById("dateResult");
+
+
+/* YES BUTTON */
+
+yesBtn.onclick = function() {
+
+  questionPage.classList.add("hidden");
+  datePage.classList.remove("hidden");
+
+};
+
+
+/* NO BUTTON */
+
+noBtn.onclick = function() {
+
+  questionPage.classList.add("hidden");
+  noPage.classList.remove("hidden");
+
+};
+
+
+/* CONFIRM DATE */
+
+confirmBtn.onclick = function() {
+
+  if (dateInput.value === "") {
+
+    alert("Please choose a date ❤️");
+    return;
+
+  }
+
+  const date = new Date(dateInput.value);
+
+  const formattedDate = date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  dateResult.innerText = formattedDate;
+
+  datePage.classList.add("hidden");
+  successPage.classList.remove("hidden");
+
+};
+
+
+/* GO BACK */
+
+function goBack() {
+
+  noPage.classList.add("hidden");
+  questionPage.classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+</html>
